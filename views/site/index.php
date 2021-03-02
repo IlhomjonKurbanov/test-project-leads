@@ -29,6 +29,7 @@ $this->title = 'Тестовый проект';
                         <?php 
                             $form = ActiveForm::begin([
                                 'id' => 'leads-form',
+                                'action' => ['save-leads'],
                                 'enableAjaxValidation' => true,
                                 'validationUrl' => \yii\helpers\Url::to(['validate-form']),
                             ]); 
@@ -62,10 +63,44 @@ $this->title = 'Тестовый проект';
                 </div>
 
             </div>
-        
+
         </div>
 
     </div>
 </div>
 
-<br>
+
+
+<?php
+
+$this->registerJs('
+
+    $(\'body\').on(\'beforeSubmit\', \'form#leads-form\', function () {
+        var form = $(this);
+        if (form.find(\'.has-error\').length) 
+        {
+            return false;
+        }
+        $.ajax({
+        url    : form.attr(\'action\'),
+        type   : \'post\',
+        data   : form.serialize(),
+        success: function (response) 
+        {
+            if (response.success){
+                alert(\'Leads saved succesfully\');
+            }
+        },
+        error  : function () 
+        {
+            console.log(\'internal server error\');
+        }
+        });
+        return false;
+    });
+
+',
+    yii\web\View::POS_READY
+);
+
+?>

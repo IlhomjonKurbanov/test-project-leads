@@ -121,5 +121,21 @@ class SiteController extends Controller
     }
 
 
+    public function actionSaveLeads()
+    {
+
+        $model = new Leads();
+        $request = \Yii::$app->getRequest();
+        if ($request->isPost && $model->load($request->post())) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            return ['success' => $model->save()];
+        }
+        return $this->renderAjax('index', [
+            'model' => $model,
+        ]);
+
+    }
+
+
 
 }
