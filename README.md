@@ -236,3 +236,13 @@ vendor/bin/codecept run functional,unit --coverage --coverage-html --coverage-xm
 ```
 
 You can see code coverage output under the `tests/_output` directory.
+
+
+
+----------------------------------
+DB
+
+ yii migrate/create create_leads_table --fields="id:primaryKey,email:string(32):notNull:unique,fullname:string(32):notNull:unique,phone:string(32):notNull:unique"
+
+ yii migrate
+    Yes
