@@ -39,7 +39,11 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Главная страница', 'url' => ['/site/index']],
-            ['label' => 'Лиды', 'url' => ['/site/leads']],
+            [
+                'label' => 'Лиды', 
+                'url' => ['/leads'],
+                'visible' => !Yii::$app->user->isGuest,
+            ],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Вход', 'url' => ['/site/login']]
             ) : (

@@ -1,53 +1,71 @@
 <?php
 
-/* @var $this yii\web\View */
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii\widgets\MaskedInput;
 
-$this->title = 'My Yii Application';
+$this->title = 'Тестовый проект';
 ?>
+
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <h1>Leads Public Page</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">Add yours leads.</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>
 
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+        
+            <div class="col-lg-12">
+        
+                <div class="leads-form row">
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                    <?php $form = ActiveForm::begin(); ?>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+                        <?php 
+                            $form = ActiveForm::begin([
+                                'id' => 'leads-form',
+                                'enableAjaxValidation' => true,
+                                'validationUrl' => \yii\helpers\Url::to(['validate-form']),
+                            ]); 
+                        ?>
+
+                        <div class="col-xs-12 col-md-4">
+                            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <?= $form->field($model, 'fullname')->textInput(['maxlength' => true]) ?>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <?//= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+                            <?php
+                                echo $form->field($model, 'phone')
+                                    ->widget(MaskedInput::className(),['mask'=>'+7 (999) 999-99-99'])
+                                    ->textInput(['placeholder'=>'+7 (999) 999-99-99','class'=>'form-control']);
+                             ?>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4 col-md-offset-8">
+                            <div class="form-group">
+                                <?= Html::submitButton('Отправить', ['class' => 'btn btn-success pull-right']) ?>
+                            </div>
+                        </div>
+
+                    <?php ActiveForm::end(); ?>
+
+                </div>
+
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+        
         </div>
 
     </div>
 </div>
+
+<br>
